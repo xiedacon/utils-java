@@ -13,7 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class XSSFUtils {
 
-	public static List<List<cn.xiedacon.util.excel.Cell>> parse(File file) {
+	public static List<List<Cell>> parse(File file) {
 		return parse(file, 0, null, 0, null, 0, null);
 	}
 
@@ -24,7 +24,7 @@ public class XSSFUtils {
 	 * @param beginRowNum
 	 * @return
 	 */
-	public static List<List<cn.xiedacon.util.excel.Cell>> parse(File file, Integer beginRowNum) {
+	public static List<List<Cell>> parse(File file, Integer beginRowNum) {
 		return parse(file, 0, null, beginRowNum, null, 0, null);
 	}
 
@@ -36,7 +36,7 @@ public class XSSFUtils {
 	 * @param cellLimit
 	 * @return
 	 */
-	public static List<List<cn.xiedacon.util.excel.Cell>> parse(File file, Integer beginRowNum, Integer cellLimit) {
+	public static List<List<Cell>> parse(File file, Integer beginRowNum, Integer cellLimit) {
 		return parse(file, 0, null, beginRowNum, null, 0, cellLimit);
 	}
 
@@ -52,9 +52,9 @@ public class XSSFUtils {
 	 * @param cellLimit
 	 * @return
 	 */
-	public static List<List<cn.xiedacon.util.excel.Cell>> parse(File file, Integer beginSheetNum, Integer sheetLimit,
+	public static List<List<Cell>> parse(File file, Integer beginSheetNum, Integer sheetLimit,
 			Integer beginRowNum, Integer rowLmit, Integer beginCellNum, Integer cellLimit) {
-		List<List<cn.xiedacon.util.excel.Cell>> result = new ArrayList<>();
+		List<List<Cell>> result = new ArrayList<>();
 		if (file == null) {
 			return result;
 		}
@@ -88,9 +88,9 @@ public class XSSFUtils {
 	 * @param cellLimit
 	 * @return
 	 */
-	private static List<List<cn.xiedacon.util.excel.Cell>> parseSheet(Sheet sheet, Integer beginRowNum, Integer rowLmit,
+	private static List<List<Cell>> parseSheet(Sheet sheet, Integer beginRowNum, Integer rowLmit,
 			Integer beginCellNum, Integer cellLimit) {
-		List<List<cn.xiedacon.util.excel.Cell>> rowList = new ArrayList<>();
+		List<List<Cell>> rowList = new ArrayList<>();
 		if (sheet == null) {
 			return rowList;
 		}
@@ -105,7 +105,7 @@ public class XSSFUtils {
 		}
 
 		for (int i = firstRowNum; i < lastRowNum + 1; i++) {
-			List<cn.xiedacon.util.excel.Cell> row = parseRow(sheet.getRow(i), beginCellNum, cellLimit);
+			List<Cell> row = parseRow(sheet.getRow(i), beginCellNum, cellLimit);
 			if (row.isEmpty()) {
 				break;
 			} else {
@@ -177,7 +177,7 @@ public class XSSFUtils {
 		for (int j = beginCellNum; j < endCellNum; j++) {
 			org.apache.poi.ss.usermodel.Cell cell = row.createCell(j);
 			Cell dataCell = dataCells.get(j);
-			dataCell.copyTo(cell);
+			dataCell.copyDataTo(cell);
 		}
 	}
 }

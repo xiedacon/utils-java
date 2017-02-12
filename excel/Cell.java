@@ -1,13 +1,36 @@
 package cn.xiedacon.util.excel;
 
+import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.poi.ss.formula.FormulaParseException;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Comment;
+import org.apache.poi.ss.usermodel.Hyperlink;
+import org.apache.poi.ss.usermodel.RichTextString;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellAddress;
+import org.apache.poi.ss.util.CellRangeAddress;
+
+
+/**
+ * 功能：
+ * 		org.apache.poi.ss.usermodel.Cell的包装类，仅提供数据接口
+ * 		copyTo方法用于将DataCell中的数据复制到org.apache.poi.ss.usermodel.Cell中
+ * 依赖：
+ * 		poi
+ * 
+ * @author xiedacon
+ * @version v0.0.1
+ *
+ */
 public class Cell {
 
 	private org.apache.poi.ss.usermodel.Cell cell;
 
 	public Cell(org.apache.poi.ss.usermodel.Cell cell) {
-		super();
 		if (cell == null) {
 			cell = new DataCell(null);
 		}
@@ -63,11 +86,229 @@ public class Cell {
 		cell.setCellValue(value);
 	}
 
-	public void copyTo(org.apache.poi.ss.usermodel.Cell cell) {
+	/**
+	 * 向org.apache.poi.ss.usermodel.Cell中复制数据
+	 * 
+	 * @param cell
+	 */
+	public void copyDataTo(org.apache.poi.ss.usermodel.Cell cell) {
 		if (this.cell instanceof DataCell) {
-			((DataCell) (this.cell)).copyTo(cell);
+			((DataCell) (this.cell)).copyDataTo(cell);
 		} else {
-			throw new RuntimeException("Cell真实类型不是DataCell");
+			throw new RuntimeException("Cell真实类型不是DataCell，无法调用该方法");
+		}
+	}
+	
+	private class DataCell implements org.apache.poi.ss.usermodel.Cell{
+		private Object data = null;
+
+		public DataCell(Object data) {
+			this.data = data;
+		}
+
+		@Override
+		public int getColumnIndex() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public int getRowIndex() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public Sheet getSheet() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public Row getRow() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public void setCellType(int arg0) {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public void setCellType(CellType arg0) {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public int getCellType() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public CellType getCellTypeEnum() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public int getCachedFormulaResultType() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public CellType getCachedFormulaResultTypeEnum() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public void setCellValue(double value) {
+			data = value;
+		}
+
+		@Override
+		public void setCellValue(Date value) {
+			data = value;
+		}
+
+		@Override
+		public void setCellValue(Calendar value) {
+			data = value;
+		}
+
+		@Override
+		public void setCellValue(RichTextString value) {
+			data = value;
+		}
+
+		@Override
+		public void setCellValue(String value) {
+			data = value;
+		}
+
+		@Override
+		public void setCellFormula(String arg0) throws FormulaParseException {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public String getCellFormula() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public double getNumericCellValue() {
+			return (Double) data;
+		}
+
+		@Override
+		public Date getDateCellValue() {
+			return (Date) data;
+		}
+
+		@Override
+		public RichTextString getRichStringCellValue() {
+			return (RichTextString) data;
+		}
+
+		@Override
+		public String getStringCellValue() {
+			return (String) data;
+		}
+
+		@Override
+		public void setCellValue(boolean value) {
+			data = value;
+		}
+
+		@Override
+		public void setCellErrorValue(byte arg0) {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public boolean getBooleanCellValue() {
+			return (Boolean) data;
+		}
+
+		@Override
+		public byte getErrorCellValue() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public void setCellStyle(CellStyle arg0) {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public CellStyle getCellStyle() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public void setAsActiveCell() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public CellAddress getAddress() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public void setCellComment(Comment arg0) {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public Comment getCellComment() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public void removeCellComment() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public Hyperlink getHyperlink() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public void setHyperlink(Hyperlink arg0) {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public void removeHyperlink() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public CellRangeAddress getArrayFormulaRange() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		@Override
+		public boolean isPartOfArrayFormulaGroup() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+
+		public void copyDataTo(org.apache.poi.ss.usermodel.Cell cell) {
+			if (data == null) {
+				return;
+			}
+
+			if (data instanceof String) {
+				cell.setCellValue((String) data);
+			} else if (data instanceof Double) {
+				cell.setCellValue((Double) data);
+			} else if (data instanceof Integer) {
+				cell.setCellValue(((Integer) data).doubleValue());
+			} else if (data instanceof Date) {
+				cell.setCellValue((Date) data);
+			} else if (data instanceof Boolean) {
+				cell.setCellValue((Boolean) data);
+			} else {
+				throw new RuntimeException("不支持该类型：" + data.getClass().getName());
+			}
 		}
 	}
 }
