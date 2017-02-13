@@ -12,12 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 
 /**
- * <p>文件下载工具类</p>
- * <P>功能：将File或FileInputStream中的内容写入response内</p>
- * <p>依赖：common-io.jar</p>
+ * <h1>文件下载工具类</h1>
+ * <h3>功能：</h3>
+ * <ul>
+ * <li>将File或FileInputStream中的内容写入response内</li>
+ * </ul>
+ * <h3>依赖：</h3>
+ * <ul>
+ * <li>common-io</li>
+ * </ul>
  * 
  * @author xiedacon
- * @version v0.01
+ * @version v0.0.0
  *
  */
 public class DownLoadUtlils {
@@ -45,7 +51,7 @@ public class DownLoadUtlils {
 	@SuppressWarnings("deprecation")
 	private static Map<String, String> createHeaders(String contentType, String fileName) {
 		fileName = URLEncoder.encode(fileName);
-		
+
 		Map<String, String> headers = new HashMap<>();
 		headers.put("Content-Type", contentType);
 		headers.put("Content-Disposition", "attachment;filename=" + fileName);
