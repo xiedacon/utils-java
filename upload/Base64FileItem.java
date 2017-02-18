@@ -28,7 +28,12 @@ public class Base64FileItem implements FileItem {
 	private FileItem fileItem;
 
 	public Base64FileItem(FileItem fileItem) {
+		this(fileItem, "UTF-8");
+	}
+	
+	public Base64FileItem(FileItem fileItem, String charset) {
 		this.fileItem = fileItem;
+		this.charset = charset;
 	}
 
 	@Override
@@ -147,12 +152,13 @@ public class Base64FileItem implements FileItem {
 
 	private String type = null;
 	private byte[] data = null;
+	private String charset;
 
 	private void parseBase64() {
 		// BASE64Decoder decoder = new BASE64Decoder();
 		Decoder decoder = Base64.getDecoder();
 		try (InputStream in = fileItem.getInputStream()) {
-			String base64 = IOUtils.toString(in);
+			String base64 = IOUtils.toString(in, charset);
 			String[] strs = base64.split(";base64,");
 			type = strs[0].substring(5);
 
